@@ -9,7 +9,7 @@ def get_credentials():
 
 def authenticate(username, password, pwdb):
     if username in pwdb:
-        if hash(password) == pwdb[username]:
+        if pwhash(password) == pwdb[username]:
             return True
     return False
 
@@ -23,10 +23,10 @@ def write_pwdb(pwdb, pwdb_file):
     pickle.dump(pwdb, pwdb_file)
 
 def add_user(username, password, pwdb):
-    pwdb[username] = hash(password)
+    pwdb[username] = pwhash(password)
     return pwdb
 
-def hash(string):
+def pwhash(string):
     hash = 1
     for char in string:
         hash = hash * (ord(char) + 1)
